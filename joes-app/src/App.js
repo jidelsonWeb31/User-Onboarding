@@ -94,12 +94,14 @@ function App() {
     
     
         // WE NEED TO POST OUR NEW USER TO THE API AND SET OUR FORM BACK TO NORMAL
-        postUser(newUser)
+        // postUser(newUser)
         setFormValues(initialFormValues)
+        setUser([...user, newUser])
     }
 
     // INPUT CHANGE
     const onInputChange = evt => {
+      
       const name = evt.target.name
       const value = evt.target.value
     
