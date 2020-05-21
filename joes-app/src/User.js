@@ -10,19 +10,7 @@ function User({details}) {
             <p>{details.email}</p>
             <p>{details.password}</p>
             <p>{details.married ? '' : ''}</p>
-            
-            {
-        !!details.termsOfService && !!details.termsOfService.length &&
-        <div>
-          Terms of Service:
-          <ul>
-            {
-              details.termsOfService.map((like, idx) => <li key={idx}>{like}</li>)
-            }
-          </ul>
-        </div>
-      }
-           
+
         </div>
     )
 }

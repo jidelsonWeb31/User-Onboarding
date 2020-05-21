@@ -35,12 +35,15 @@ function App() {
   
   const [user, setUser] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
+  // const [post, setPost] = useState([])
   
   //STATE KEEPS TRACK OF IF SUBMIT BUTTON IS DISABLED OR NOT
   const [formDisabled, setFormDisabled] = useState(true)
   
   //STATE NEEDS TO KEEP TRACK OF VALIDATION ERRORS
   const [formErrors, setFormErrors] = useState(initialFormErrors)
+
+  
 
   // FETCH YOUR USERS FROM API AND SET THEM IN STATE
   const getUsers = () => {
@@ -88,8 +91,8 @@ function App() {
         email: formValues.email,
         civil: formValues.civil === 'single' ? false : true,
         password: formValues.password,
-        termsOfService: Object.keys(formValues.termsOfService)
-        .filter(termsOfService => formValues.termsOfService[termsOfService] ===true)
+        // termsOfService: Object.keys(formValues.termsOfService)
+        // .filter(termsOfService => formValues.termsOfService[termsOfService] ===true)
         }
     
     
