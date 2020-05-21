@@ -19,7 +19,7 @@ const initialFormValues = [
     password:'',
     civil: '',
     termsOfService: false
-}
+  }
 ];
 
 //SHAPE OF VALIDATION ERRORS OBJECT
@@ -65,13 +65,22 @@ function App() {
     // WE NEED A FUNCTION TO ADD A NEW USER TO API
     // AND SET AN UPDATED LIST OF USERS IN STATE
     const postUser = users => {
-      axios.post(url, user)
+      axios.post(url, users)
       .then(res => {
-        setUser([...users, res.data])
+        setUser([res.data, ...user])
+        console.log(res)
       })
       .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        setFormValues(initialFormValues)
       })
     }
+
+    // useEffect(() =>{
+    //   postUser()
+    //   }, [])
 
     // IF FORM IS CHANGED WE NEED TO RUN VALIDATION
     // AND USE CHANGES TO ENABLE/DISABLE SUBMIT BUTTON
@@ -97,7 +106,7 @@ function App() {
     
     
         // WE NEED TO POST OUR NEW USER TO THE API AND SET OUR FORM BACK TO NORMAL
-        // postUser(newUser)
+        postUser(newUser)
         setFormValues(initialFormValues)
         setUser([...user, newUser])
     }
@@ -116,7 +125,7 @@ function App() {
       .reach(formSchema, name)
       .validate(value)
       .then(valid => {
-    setFormErrors({
+      setFormErrors({
       //"HAPPY PATH" WILL CLEAR ERROR AND "SET IT BACK"... VALIDATES!
       ...formErrors,
       [name]:'',
@@ -144,8 +153,8 @@ function App() {
       setFormValues({
         ...formValues,
         termsOfService: {
-    ...formValues.termsOfService,
-      [true]: isChecked,
+        ...formValues.termsOfService,
+        [true]: isChecked,
         }
       })
     }
@@ -157,8 +166,8 @@ function App() {
       onInputChange = {onInputChange}
       onCheckBoxChange = {onCheckBoxChange}
       onSubmit = {onSubmit}
-      disabled ={formDisabled}
-      errors ={formErrors}
+      disabled = {formDisabled}
+      errors = {formErrors}
       />
 
 {
