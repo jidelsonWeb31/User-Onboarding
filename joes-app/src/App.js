@@ -18,7 +18,7 @@ const initialFormValues = [
     email:'',
     password:'',
     civil: '',
-    termsOfService: false
+    termsOfService: true
   }
 ];
 
@@ -30,15 +30,19 @@ const initialFormErrors = {
   civil:'',
   }
 
+const initialFormDisabled = true;
+
+
+
   //********YOUR ACTUAL APPLICATION******** */
 function App() {
   
   const [user, setUser] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
-  // const [post, setPost] = useState([])
+  const [post, setPost] = useState([])
   
   //STATE KEEPS TRACK OF IF SUBMIT BUTTON IS DISABLED OR NOT
-  const [formDisabled, setFormDisabled] = useState(true)
+  const [formDisabled, setFormDisabled] = useState(initialFormDisabled)
   
   //STATE NEEDS TO KEEP TRACK OF VALIDATION ERRORS
   const [formErrors, setFormErrors] = useState(initialFormErrors)
@@ -78,9 +82,9 @@ function App() {
       })
     }
 
-    // useEffect(() =>{
-    //   postUser()
-    //   }, [])
+    useEffect(() =>{
+      postUser()
+      }, [])
 
     // IF FORM IS CHANGED WE NEED TO RUN VALIDATION
     // AND USE CHANGES TO ENABLE/DISABLE SUBMIT BUTTON
@@ -96,12 +100,12 @@ function App() {
     
     
         const newUser = {
-        name: formValues.name,
-        email: formValues.email,
+        name: formValues.name.trim(),
+        email: formValues.email.trim(),
         civil: formValues.civil === 'single' ? false : true,
         password: formValues.password,
-        // termsOfService: Object.keys(formValues.termsOfService)
-        // .filter(termsOfService => formValues.termsOfService[termsOfService] ===true)
+        termsOfService: Object.keys(formValues.termsOfService)
+        .filter(termsOfService => formValues.termsOfService[termsOfService] ===true)
         }
     
     
@@ -109,8 +113,18 @@ function App() {
         postUser(newUser)
         setFormValues(initialFormValues)
         setUser([...user, newUser])
-    }
 
+        const userObjToString = JSON.stringify(newUser)
+        console.log(userObjToString)
+
+        const toJSONuser= JSON.parse(userObjToString);
+        // just a test to console log the email
+        console.log(toJSONuser.email)
+
+          document.write(JSON.stringify(newUser))
+        
+    }
+  
     // INPUT CHANGE
     const onInputChange = evt => {
       
@@ -145,17 +159,14 @@ function App() {
       })
     }
     
+
     // CHECKBOX
     const onCheckBoxChange = evt => {
-      const {termsOfService} = evt.target
-      const isChecked = evt.target.checked
-    
+      const checked = evt.target.checked
+      console.log(checked);
       setFormValues({
         ...formValues,
-        termsOfService: {
-        ...formValues.termsOfService,
-        [true]: isChecked,
-        }
+        termsOfService: checked
       })
     }
 
@@ -170,13 +181,18 @@ function App() {
       errors = {formErrors}
       />
 
-{
+      {
         user.map(user => {
           return (  
             <User key={user.id} details={user} />
           )
         })
       }
+
+
+        
+      
+
     </div>
   );
 }

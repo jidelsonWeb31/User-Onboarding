@@ -1,4 +1,5 @@
 import React from 'react';
+import User from './User';
 
 function Form(props) {
     const {
@@ -7,7 +8,7 @@ function Form(props) {
         onSubmit,
         disabled,
         errors,
-        onCheckboxChange
+        onCheckBoxChange
         } = props
 
     return(
@@ -72,8 +73,8 @@ function Form(props) {
             <input
                 name='termsOfService'
                 type="checkbox"
-                // checked={true}
-                // onChange={onCheckBoxChange}
+                checked={values.termsOfService}
+                onChange={onCheckBoxChange}
             />
             Terms Of Service
         </label>
